@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:padding="16dp"
-    tools:context=".LoginActivity">
+    tools:context=".login.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -110,4 +110,10 @@
             android:text="¿Olvidaste tu contraseña? Click aquí"
             android:textColor="@android:color/holo_blue_dark" />
     </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 </LinearLayout>
