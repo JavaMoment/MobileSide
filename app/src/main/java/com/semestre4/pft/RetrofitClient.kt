@@ -36,7 +36,7 @@ object RetrofitClient {
                 .client(client)
                 .build()
         }
-        // devuelve la instancia de retrofit
+        // devuelve la instancia de retrofit q no puede ser nula
         return retrofit!!
     }
 }
