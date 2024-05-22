@@ -31,7 +31,7 @@ object RetrofitClient {
 
             // construye la instancia de retrofit con la url base, el convertidor gson y el cliente HTTP
             retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
+                .baseUrl("http://10.0.2.2:8080/WebSide/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build()
