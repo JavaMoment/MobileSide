@@ -1,4 +1,4 @@
-package com.semestre4.pft
+package com.mobile.pft
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.semestre4.pft.login
+package com.mobile.pft.login
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,9 +9,9 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.semestre4.pft.MainActivity
-import com.semestre4.pft.R
-import com.semestre4.pft.RetrofitClient
+import com.mobile.pft.MainActivity
+import com.mobile.pft.R
+import com.mobile.pft.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
