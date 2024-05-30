@@ -1,9 +1,9 @@
-package com.semestre4.pft
+package com.mobile.pft
 
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.semestre4.pft.R
+import com.mobile.pft.R
 
 class MainActivity : AppCompatActivity() {
 
