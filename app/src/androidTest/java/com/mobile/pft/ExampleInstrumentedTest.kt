@@ -1,4 +1,4 @@
-package com.semestre4.pft
+package com.mobile.pft
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
