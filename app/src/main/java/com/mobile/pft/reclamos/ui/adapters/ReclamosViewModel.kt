@@ -2,7 +2,6 @@ package com.mobile.pft.reclamos.ui.adapters
 
 import android.util.Log
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -31,7 +30,7 @@ class ReclamosViewModel(
     private val reclamosRepository: ReclamosRepository,
     //private val user: UsuarioDTO
 ) : ViewModel() {
-    var reclamosUiState: ReclamosUiState by mutableStateOf(ReclamosUiState.Loading)
+    var uiState: ReclamosUiState by mutableStateOf(ReclamosUiState.Loading)
         private set
 
     var statusReclamo: List<StatusReclamoDTO> = emptyList<StatusReclamoDTO>()
@@ -47,8 +46,9 @@ class ReclamosViewModel(
 
     fun getReclamos() {
         viewModelScope.launch {
-            reclamosUiState = ReclamosUiState.Loading
-            reclamosUiState = try {
+            uiState = ReclamosUiState.Loading
+            uiState = try {
+                Log.i("ReclamosView","Consultando api por los reclamos.")
                 ReclamosUiState.Success(reclamosRepository.getReclamos())
             } catch (e: IOException) {
                 ReclamosUiState.Error
@@ -68,7 +68,7 @@ class ReclamosViewModel(
             } catch (e: HttpException) {
                 emptyList<StatusReclamoDTO>()
             }
-            Log.i("ReclamosView","Reclamos conseguidos: $statusReclamo")
+            Log.i("ReclamosView","Status conseguidos: $statusReclamo")
         }
     }
 

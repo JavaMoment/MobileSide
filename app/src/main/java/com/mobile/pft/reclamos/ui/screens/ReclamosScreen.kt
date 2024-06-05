@@ -1,18 +1,12 @@
 package com.mobile.pft.reclamos.ui.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,18 +15,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -46,43 +37,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalTextInputService
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.mobile.pft.R
+import androidx.navigation.NavHostController
 import com.mobile.pft.model.ReclamoDTO
 import com.mobile.pft.model.StatusReclamoDTO
-import com.mobile.pft.reclamos.ui.activity.ReclamosApp
 import com.mobile.pft.reclamos.ui.adapters.ReclamosUiState
+import com.mobile.pft.reclamos.ui.components.ColoredTextField
 import com.mobile.pft.utils.NamedObject
 
-class ReclamosActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
-        super.onCreate(savedInstanceState)
-        setContent {
-            Surface(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                ReclamosApp()
-            }
-        }
-    }
-}
-
 @Composable
-fun AnalistaReclamosScreen(
-    reclamosUiState: ReclamosUiState,
-    status: List<StatusReclamoDTO>,
+fun ReclamosScreen(
+    uiState: ReclamosUiState,
     retryAction: () -> Unit,
-    contentPadding: PaddingValues
+    contentPadding: PaddingValues,
+    controller: NavHostController
 ) {
-    when (reclamosUiState) {
+    when (uiState) {
         is ReclamosUiState.Loading -> LoadingScreen()
         is ReclamosUiState.Success -> ReclamosList(
-            reclamos = reclamosUiState.reclamos,
-            status = status,
-            contentPadding = contentPadding
+            reclamos = uiState.reclamos,
+            contentPadding = contentPadding,
+            controller = controller,
         )
         is ReclamosUiState.Error -> ErrorScreen(retryAction)
     }
@@ -91,9 +66,10 @@ fun AnalistaReclamosScreen(
 @Composable
 fun ReclamosList(
     reclamos: List<ReclamoDTO>,
-    status: List<StatusReclamoDTO>,
-    contentPadding: PaddingValues
+    contentPadding: PaddingValues,
+    controller: NavHostController,
 ) {
+    Log.i("ReclamosScreen","Reclamos utilizados: $reclamos")
     val state = rememberLazyListState()
     Column(
         modifier = Modifier.padding(contentPadding)
@@ -116,7 +92,7 @@ fun ReclamosList(
             state = state
         ) {
             items(reclamos) {reclamo ->
-                ReclamoItem(reclamo = reclamo, status)
+                ReclamoItem(reclamo = reclamo, onClick = { controller.navigate("reclamo/${reclamo.idReclamo}") })
                 Divider(color = Color.Gray, modifier = Modifier
                     .fillMaxWidth()
                     .width(1.dp))
@@ -129,7 +105,7 @@ fun ReclamosList(
 @Composable
 fun ReclamoItem(
     reclamo: ReclamoDTO,
-    status: List<StatusReclamoDTO>
+    onClick: () -> Unit
 ) {
     Column {
         ListItem(
@@ -140,85 +116,9 @@ fun ReclamoItem(
             },
             modifier = Modifier
                 .padding(top = 8.dp, bottom = 8.dp, start = 16.dp)
+                .clickable { onClick() }
         )
     }
-}
-
-/**
- * Mientras conseguimos los datos para los dropdown mostramos una pantalla de carga.
- */
-@Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
-    Image(
-        modifier = modifier.size(200.dp),
-        painter = painterResource(R.drawable.loading_img),
-        contentDescription = "Cargando..."
-    )
-}
-
-/**
- * Si la api genera algún error, mostramos una pantalla que permita reintentar.
- */
-@Composable
-fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_connection_error), contentDescription = ""
-        )
-        Text(text = "Error de conexión con el servidor.", modifier = Modifier.padding(16.dp))
-        Button(onClick = retryAction) {
-            Text("Reintentar")
-        }
-    }
-}
-
-@Composable
-fun ColoredTextField(
-    option: NamedObject
-) {
-    val colors = if(option.nombre == "PENDIENTE") {
-        OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Color.Black,
-            unfocusedBorderColor = Color.Black,
-            focusedTextColor = Color.Black,
-            cursorColor = Color.Black,
-            focusedContainerColor = Color.Gray,
-            unfocusedContainerColor = Color.Gray
-        )
-    } else if(option.nombre == "EN PROGRESO") {
-        OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Color.Black,
-            unfocusedBorderColor = Color.Black,
-            focusedTextColor = Color.Black,
-            cursorColor = Color.Black,
-            focusedContainerColor = Color.Yellow,
-            unfocusedContainerColor = Color.Yellow
-        )
-    } else {
-        OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Color.Black,
-            unfocusedBorderColor = Color.Black,
-            focusedTextColor = Color.Black,
-            cursorColor = Color.Black,
-            focusedContainerColor = Color.Red,
-            unfocusedContainerColor = Color.Red
-        )
-    }
-    OutlinedTextField(
-        readOnly = true,
-        value = option.nombre,
-        onValueChange = {},
-        label = {},
-        modifier = Modifier
-            .size(110.dp, 60.dp),
-        colors = colors,
-        textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center),
-        shape = RoundedCornerShape(25.dp)
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -227,7 +127,6 @@ fun DropdownBox(
     option: NamedObject,
     items: List<NamedObject>,
     onValueChange: (String) -> Unit = {},
-    onSelected: () -> Unit = {}
 ) {
     var expanded by remember {
         mutableStateOf(false)
@@ -246,15 +145,16 @@ fun DropdownBox(
                 },
                 label = {  },
                 modifier = Modifier
-                    .size(130.dp, 70.dp)
-                    .clickable { expanded = !expanded },
+                    .clickable { expanded = !expanded }
+                    .menuAnchor()
+                    .fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.Black,
                     unfocusedBorderColor = Color.Black,
                     focusedTextColor = Color.Black,
                     cursorColor = Color.Black,
-                    focusedContainerColor = Color.Yellow,
-                    unfocusedContainerColor = Color.Yellow
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White
                 ),
                 shape = RoundedCornerShape(25.dp)
             )
@@ -266,7 +166,10 @@ fun DropdownBox(
             items.forEach {
                 DropdownMenuItem(
                     text = { Text(it.nombre) },
-                    onClick = onSelected
+                    onClick = {
+                        onValueChange(it.nombre)
+                        expanded = !expanded
+                    }
                 )
             }
         }

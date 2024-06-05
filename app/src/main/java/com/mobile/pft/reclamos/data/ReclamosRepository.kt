@@ -10,6 +10,7 @@ import com.mobile.pft.reclamos.network.ReclamosApiService
 interface ReclamosRepository {
     suspend fun getReclamos(): List<ReclamoDTO>
     suspend fun getStatusReclamo(): List<StatusReclamoDTO>
+    suspend fun getReclamoBy(idReclamo: Long): ReclamoDTO
 }
 
 /**
@@ -20,4 +21,5 @@ class NetworkReclamosRepository(
 ) : ReclamosRepository {
     override suspend fun getReclamos(): List<ReclamoDTO> = reclamosApiService.getReclamos()
     override suspend fun getStatusReclamo(): List<StatusReclamoDTO> = reclamosApiService.getStatusReclamo()
+    override suspend fun getReclamoBy(idReclamo: Long): ReclamoDTO = reclamosApiService.getReclamoBy(idReclamo)
 }
