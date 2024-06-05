@@ -3,6 +3,7 @@ package com.mobile.pft.reclamos.network
 import com.mobile.pft.model.ReclamoDTO
 import com.mobile.pft.model.StatusReclamoDTO
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * Interfaz publica donde exponemos los metodos api relacionados al signup
@@ -16,4 +17,7 @@ interface ReclamosApiService {
 
     @GET("reclamos/statuses")
     suspend fun getStatusReclamo(): List<StatusReclamoDTO>
+
+    @GET("reclamos/{idReclamo}")
+    suspend fun getReclamoBy(@Path("idReclamo") idReclamo: Long): ReclamoDTO
 }

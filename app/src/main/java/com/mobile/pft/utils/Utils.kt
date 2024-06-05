@@ -13,7 +13,3 @@ object DateAsLongSerializer : KSerializer<Date> {
     override fun serialize(encoder: Encoder, value: Date) = encoder.encodeLong(value.time)
     override fun deserialize(decoder: Decoder): Date = Date(decoder.decodeLong())
 }
-
-interface NamedObject {
-    val nombre: String
-}
