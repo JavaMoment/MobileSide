@@ -10,6 +10,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.mobile.pft.UtecApplication
+import com.mobile.pft.model.EventoDTO
+import com.mobile.pft.model.PatchDTO
 import com.mobile.pft.model.ReclamoDTO
 import com.mobile.pft.model.StatusReclamoDTO
 import com.mobile.pft.reclamos.data.ReclamosRepository
@@ -34,8 +36,12 @@ class ReclamoViewModel(
     var statusReclamo: List<StatusReclamoDTO> = emptyList<StatusReclamoDTO>()
         private set
 
+    var eventos: List<EventoDTO> = emptyList<EventoDTO>()
+        private set
+
     init {
         getStatusReclamo()
+        getEventos()
     }
 
     fun getReclamo(idReclamo: Long) {
@@ -63,6 +69,30 @@ class ReclamoViewModel(
             }
             Log.i("ReclamoView","Status conseguidos: $statusReclamo")
         }
+    }
+
+    fun getEventos() {
+        viewModelScope.launch {
+            eventos = try {
+                Log.i("ReclamoView","Consultando api por los eventos disponibles.")
+                reclamosRepository.getEventos()
+            } catch (e: IOException) {
+                emptyList<EventoDTO>()
+            } catch (e: HttpException) {
+                emptyList<EventoDTO>()
+            }
+            Log.i("ReclamoView","Eventos conseguidos: $eventos")
+        }
+    }
+
+    fun partialUpdate(reclamoId: Long, op: PatchDTO) {
+
+        viewModelScope.launch {
+            Log.i("ReclamoView","Intentando actualizar el atributo: ${op.path}, del reclamo #$reclamoId")
+            val reclamo = reclamosRepository.partialUpdate(reclamoId, op)
+            Log.i("ReclamoView","Reclamo actualizado: $reclamo")
+        }
+
     }
 
     companion object {

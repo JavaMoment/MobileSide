@@ -77,7 +77,8 @@ fun AttributeInputText(
     value: String,
     onValueChange: (String) -> Unit = {},
     readOnly: Boolean = true,
-    leadingIcon: @Composable (() -> Unit)? = null
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
 ) {
     Spacer(modifier = Modifier.height(8.dp))
     Text(
@@ -91,6 +92,7 @@ fun AttributeInputText(
         readOnly = readOnly,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
-        leadingIcon = leadingIcon
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon
     )
 }

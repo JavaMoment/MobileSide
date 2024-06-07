@@ -26,7 +26,7 @@ fun ReclamoApp(navController: NavHostController, reclamoId: Long?) {
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = { TopAppBar(scrollBehavior = scrollBehavior, navIcon = { GoBackButton(
             onClick = {
-                navController.navigate("reclamos")
+                navController.navigate("reclamos/${navController.previousBackStackEntry?.arguments?.getString("nombreUsuario")}")
             }
         ) }) },
         //bottomBar = { SignupBottomBar(scrollBehavior = scrollBehavior) }
@@ -41,14 +41,11 @@ fun ReclamoApp(navController: NavHostController, reclamoId: Long?) {
             }
             ReclamoScreen(
                 reclamoUiState = reclamoViewModel.uiState,
-                retryAction = {
-                    if (reclamoId != null) {
-                        reclamoViewModel.getReclamo(reclamoId)
-                    }
-                },
                 status = reclamoViewModel.statusReclamo,
                 contentPadding = paddingValues,
-                isAnalista = true,
+                isAnalista = navController.previousBackStackEntry?.arguments?.getString("nombreUsuario") == null, // es analista si los reclamos no se filtran por nombre de usuario
+                eventos = reclamoViewModel.eventos,
+                reclamoViewModel = reclamoViewModel
             )
         }
     }
