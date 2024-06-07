@@ -1,4 +1,4 @@
-package com.semestre4.pft.login
+package com.mobile.pft.login
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,9 +9,8 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.semestre4.pft.MainActivity
+import com.mobile.pft.RetrofitClient
 import com.semestre4.pft.R
-import com.semestre4.pft.RetrofitClient
 import com.semestre4.pft.claims.ClaimsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -87,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 runOnUiThread {
                     // oculta la barra de progreso y muestra un mensaje de error
+                    
                     progressBar.visibility = View.GONE
                     Toast.makeText(this@LoginActivity, "error de aplicación: ${e.message}", Toast.LENGTH_SHORT).show()
                     println(e.message)

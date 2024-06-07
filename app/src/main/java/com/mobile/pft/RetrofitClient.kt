@@ -1,4 +1,4 @@
-package com.semestre4.pft
+package com.mobile.pft
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

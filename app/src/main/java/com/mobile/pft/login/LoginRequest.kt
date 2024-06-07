@@ -1,4 +1,4 @@
-package com.semestre4.pft.login
+package com.mobile.pft.login
 
 
 data class LoginRequest(val emailUtec: String, val password: String)

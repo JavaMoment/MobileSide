@@ -1,4 +1,4 @@
-package com.semestre4.pft.login
+package com.mobile.pft.login
 
 import com.semestre4.pft.claims.ClaimDTO
 import com.semestre4.pft.claims.EventoDTO
