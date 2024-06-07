@@ -6,15 +6,21 @@ import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.mobile.pft.R
+import androidx.navigation.navArgument
 import com.mobile.pft.reclamos.ui.activity.ReclamoApp
 import com.mobile.pft.reclamos.ui.activity.ReclamosApp
 
@@ -23,6 +29,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Inicializa SharedPreferences
+        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        val username = sharedPreferences.getString("userLogged", null)
+        Log.d("MainActivity", "Username utilizado: $username")
+
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
@@ -30,13 +41,9 @@ class MainActivity : AppCompatActivity() {
             Surface(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                NavigationComponent(navController)
+                NavigationComponent(navController, username)
             }
         }
-        //setContentView(R.layout.activity_main)
-
-        // Inicializa SharedPreferences
-        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
 
         // Recupera el token JWT
         val token = sharedPreferences.getString("jwt_token", null)
@@ -53,13 +60,29 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun NavigationComponent(navController: NavHostController) {
+fun NavigationComponent(navController: NavHostController, username: String?) {
     NavHost(
         navController = navController,
-        startDestination = "reclamos"
+        startDestination = "catwalk"
     ) {
-        composable("reclamos") {
-            ReclamosApp(navController)
+        composable(
+            route = "catwalk",
+        ) {
+            Log.i("Pasarela", "navegando hacia pantalla inicial")
+            navController.navigate("reclamos/$username")
+        } // Fix para poder ir a reclamos de manera parametrizada y además agrega la imposibilidad de ir al login navegando hacia atras ;)
+        composable(
+            route = "reclamos/{nombreUsuario}",
+            arguments = listOf(
+                navArgument("nombreUsuario") {
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
+        ) {entry ->
+            val nombreUsuario: String? = entry.arguments?.getString("nombreUsuario")
+            Log.i("Navigation", "nombre de usuario: $nombreUsuario")
+            ReclamosApp(navController, nombreUsuario)
         }
         composable("reclamo/{reclamoId}") { entry ->
             val reclamoId = entry.arguments?.getString("reclamoId")?.toLong()
