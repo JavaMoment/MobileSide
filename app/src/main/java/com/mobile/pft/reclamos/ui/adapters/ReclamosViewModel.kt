@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -14,9 +15,11 @@ import com.mobile.pft.UtecApplication
 import com.mobile.pft.model.ReclamoDTO
 import com.mobile.pft.model.StatusReclamoDTO
 import com.mobile.pft.reclamos.data.ReclamosRepository
+import com.mobile.pft.utils.TipoUsuario
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
+import java.lang.reflect.TypeVariable
 
 sealed interface ReclamosUiState {
     data class Success(
@@ -27,8 +30,7 @@ sealed interface ReclamosUiState {
 }
 
 class ReclamosViewModel(
-    private val reclamosRepository: ReclamosRepository,
-    //private val user: UsuarioDTO
+    private val reclamosRepository: ReclamosRepository
 ) : ViewModel() {
     var uiState: ReclamosUiState by mutableStateOf(ReclamosUiState.Loading)
         private set
@@ -40,16 +42,29 @@ class ReclamosViewModel(
      * Conseguir la info de la api de inmediato.
      */
     init {
-        getReclamos()
         getStatusReclamo()
     }
 
     fun getReclamos() {
         viewModelScope.launch {
-            uiState = ReclamosUiState.Loading
+            //uiState = ReclamosUiState.Loading
             uiState = try {
                 Log.i("ReclamosView","Consultando api por los reclamos.")
                 ReclamosUiState.Success(reclamosRepository.getReclamos())
+            } catch (e: IOException) {
+                ReclamosUiState.Error
+            } catch (e: HttpException) {
+                ReclamosUiState.Error
+            }
+        }
+    }
+
+    fun getReclamosBy(nombreUsuario: String) {
+        viewModelScope.launch {
+            //uiState = ReclamosUiState.Loading
+            uiState = try {
+                Log.i("ReclamosView","Consultando api por los reclamos del estudiante $nombreUsuario.")
+                ReclamosUiState.Success(reclamosRepository.getReclamosBy(nombreUsuario))
             } catch (e: IOException) {
                 ReclamosUiState.Error
             } catch (e: HttpException) {
