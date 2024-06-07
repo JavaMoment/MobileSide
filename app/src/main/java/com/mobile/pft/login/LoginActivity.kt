@@ -11,9 +11,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mobile.pft.MainActivity
+import com.mobile.pft.R
 import com.mobile.pft.RetrofitClient
-import com.semestre4.pft.R
-import com.semestre4.pft.claims.ClaimsActivity
 import com.mobile.pft.utils.TipoUsuario
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

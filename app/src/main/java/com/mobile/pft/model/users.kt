@@ -37,3 +37,9 @@ data class EstudianteDTO(
     val usuario: UsuarioDTO,
     val generacion: String
 )
+
+data class Estudiante(
+    val idEstudiante: Long,
+    val usuario: UsuarioDTO,
+    val generacion: String
+)

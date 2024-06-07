@@ -1,14 +1,17 @@
 package com.mobile.pft.reclamos.network
 
 import com.mobile.pft.model.EventoDTO
+import com.mobile.pft.model.NewClaimDTO
 import com.mobile.pft.model.PatchDTO
 import com.mobile.pft.model.ReclamoDTO
 import com.mobile.pft.model.StatusReclamoDTO
 import com.mobile.pft.utils.APPLICATION_JSON_PATCH
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 /**
@@ -18,6 +21,8 @@ interface ReclamosApiService {
     /**
      * GET que devuelve una [List] de [ReclamoDTO] y puede ser llamado desde una coroutine (cof cof composable cof cof).
      */
+
+
     @GET("reclamos")
     suspend fun getReclamos(): List<ReclamoDTO>
 

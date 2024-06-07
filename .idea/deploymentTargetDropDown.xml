@@ -5,8 +5,27 @@
       <entry key="ClaimsActivity">
         <State />
       </entry>
-      <entry key="app">
+      <entry key="LoginActivity">
         <State />
+      </entry>
+      <entry key="NewClaimActivity">
+        <State />
+      </entry>
+      <entry key="app">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\gianl\.android\avd\Pixel_3a_API_27.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-06-07T20:03:26.647533800Z" />
+        </State>
       </entry>
     </value>
   </component>

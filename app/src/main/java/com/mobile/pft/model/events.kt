@@ -15,4 +15,16 @@ data class EventoDTO(
     @SerialName(value = "titulo")
     override val nombre: String,
     val tiposEvento: TipoEventoDTO?
-) : NamedObject
+) : NamedObject {
+
+}
+
+data class Evento(
+    val idEvento: Long,
+    val titulo: String,
+    val tiposEvento: TipoEventoDTO
+){
+    override fun toString(): String {
+        return titulo
+    }
+}

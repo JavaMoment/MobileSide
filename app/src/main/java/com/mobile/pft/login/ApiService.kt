@@ -1,11 +1,13 @@
 package com.mobile.pft.login
 
-import com.semestre4.pft.claims.ClaimDTO
-import com.semestre4.pft.claims.EventoDTO
+
+import com.mobile.pft.model.Evento
+import com.mobile.pft.model.NewClaimDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 // define una interfaz de servicio de api psra las solicitudes de red
 interface ApiService {
@@ -16,8 +18,11 @@ interface ApiService {
     fun doLogin(@Body loginRequest: LoginRequest): Call<LoginResponse>
 
     @GET("reclamos/eventos")
-    fun getEvents(): Call<List<EventoDTO>>
+    fun getEventos(): Call<List<Evento>>
 
-    @POST("reclamos")
-    fun postClaims(@Body claimDTO: ClaimDTO): Call<ClaimDTO>
+    @POST("reclamos/{username}")
+    fun postClaims( @Path("username") username: String?, @Body newClaimDTO: NewClaimDTO): Call<NewClaimDTO>
+
+
+
 }

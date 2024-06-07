@@ -31,14 +31,6 @@
                 android:value="true" />
 
         </activity>
-<<<<<<< HEAD
-        <activity android:name="com.semestre4.pft.claims.ClaimsActivity" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER" />
-
-            </intent-filter>
-=======
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -54,7 +46,7 @@
 
         </activity>
         <activity
-            android:name=".TestActivity"
+            android:name=".reclamos.ui.activity.NewClaimActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,8 +58,8 @@
                 android:name="iconics-context"
                 android:value="true" />
 
->>>>>>> df088f3914253e27126379daadd20d1385f653dd
         </activity>
+
     </application>
 
 </manifest>

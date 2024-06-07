@@ -1,9 +1,9 @@
-package com.semestre4.pft.claims
+package com.mobile.pft.model
 
-data class ClaimDTO(
+data class NewClaimDTO(
     val titulo: String,
     val descripcion: String,
-    val evento: EventoDTO,
+    val evento: Evento,
     val semestre: Int,
     val creditos: Int
 )
