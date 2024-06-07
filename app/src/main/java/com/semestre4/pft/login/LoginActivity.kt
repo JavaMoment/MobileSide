@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.semestre4.pft.MainActivity
 import com.semestre4.pft.R
 import com.semestre4.pft.RetrofitClient
+import com.semestre4.pft.claims.ClaimsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -76,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
                         editor.apply()
 
                         // redirige a MainActivity
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        val intent = Intent(this@LoginActivity, ClaimsActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
