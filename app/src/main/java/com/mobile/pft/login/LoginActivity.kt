@@ -3,6 +3,7 @@ package com.mobile.pft.login
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mobile.pft.MainActivity
 import com.mobile.pft.R
 import com.mobile.pft.RetrofitClient
+import com.mobile.pft.utils.TipoUsuario
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -73,6 +75,8 @@ class LoginActivity : AppCompatActivity() {
                         // almacena el token JWT en sharedPreferences
                         val editor = sharedPreferences.edit()
                         editor.putString("jwt_token", loginResponse?.token)
+                        if(loginResponse?.tipoUsuario == TipoUsuario.ESTUDIANTE) editor.putString("userLogged", loginResponse.username) else editor.remove("userLogged") // las shared preferences quedan cacheadas :)
+                        Log.i("LoginActivity", "Response: $loginResponse")
                         editor.apply()
 
                         // redirige a MainActivity
