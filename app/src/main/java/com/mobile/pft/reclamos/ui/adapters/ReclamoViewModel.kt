@@ -86,13 +86,19 @@ class ReclamoViewModel(
     }
 
     fun partialUpdate(reclamoId: Long, op: PatchDTO) {
-
         viewModelScope.launch {
             Log.i("ReclamoView","Intentando actualizar el atributo: ${op.path}, del reclamo #$reclamoId")
             val reclamo = reclamosRepository.partialUpdate(reclamoId, op)
             Log.i("ReclamoView","Reclamo actualizado: $reclamo")
         }
+    }
 
+    fun updateReclamo(reclamo: ReclamoDTO) {
+        viewModelScope.launch {
+            Log.i("ReclamoView", "Intentando actualizar reclamo #${reclamo.idReclamo}")
+            val reclamoResponse = reclamosRepository.updateReclamo(reclamo)
+            Log.i("ReclamoView", "Reclamo actualizado")
+        }
     }
 
     companion object {
