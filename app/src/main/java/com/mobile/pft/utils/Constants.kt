@@ -11,3 +11,5 @@ enum class TipoUsuario {
 }
 
 const val APPLICATION_JSON_PATCH = "application/json+patch"
+
+val creditBearingEvents = setOf("VME", "APE", "OPTATIVAS")

@@ -16,6 +16,7 @@ interface ReclamosRepository {
     suspend fun getReclamosBy(nombreUsuario: String): List<ReclamoDTO>
     suspend fun getEventos(): List<EventoDTO>
     suspend fun partialUpdate(idReclamo: Long, operation: PatchDTO): ReclamoDTO
+    suspend fun updateReclamo(reclamo: ReclamoDTO): ReclamoDTO
 }
 
 /**
@@ -30,4 +31,5 @@ class NetworkReclamosRepository(
     override suspend fun getReclamosBy(nombreUsuario: String): List<ReclamoDTO> = reclamosApiService.getReclamosBy(nombreUsuario)
     override suspend fun getEventos(): List<EventoDTO> = reclamosApiService.getEventos()
     override suspend fun partialUpdate(idReclamo: Long, operation: PatchDTO): ReclamoDTO = reclamosApiService.partialUpdate(idReclamo, arrayListOf(operation))
+    override suspend fun updateReclamo(reclamo: ReclamoDTO): ReclamoDTO = reclamosApiService.updateReclamo(reclamo)
 }

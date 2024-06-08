@@ -9,6 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.PATCH
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 /**
@@ -36,4 +37,7 @@ interface ReclamosApiService {
     @Headers("Content-Type: $APPLICATION_JSON_PATCH")
     @PATCH("reclamos/{idReclamo}")
     suspend fun partialUpdate(@Path("idReclamo") idReclamo: Long, @Body operation: ArrayList<PatchDTO>): ReclamoDTO
+
+    @PUT("reclamos")
+    suspend fun updateReclamo(@Body reclamo: ReclamoDTO): ReclamoDTO
 }
