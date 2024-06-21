@@ -53,7 +53,16 @@ fun ColoredTextField(
             focusedContainerColor = Color.Yellow,
             unfocusedContainerColor = Color.Yellow
         )
-    } else {
+    } else if(option.nombre == Status.FINALIZADO.value) {
+        OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Color.Black,
+            unfocusedBorderColor = Color.Black,
+            focusedTextColor = Color.Black,
+            cursorColor = Color.Black,
+            focusedContainerColor = Color.Green,
+            unfocusedContainerColor = Color.Green
+        )
+    } else if(option.nombre == Status.RECHAZADO.value) {
         OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color.Black,
             unfocusedBorderColor = Color.Black,
@@ -61,6 +70,15 @@ fun ColoredTextField(
             cursorColor = Color.Black,
             focusedContainerColor = Color.Red,
             unfocusedContainerColor = Color.Red
+        )
+    } else {
+        OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Color.Black,
+            unfocusedBorderColor = Color.Black,
+            focusedTextColor = Color.Black,
+            cursorColor = Color.Black,
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White
         )
     }
     CompositionLocalProvider(
