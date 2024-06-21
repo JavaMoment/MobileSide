@@ -2,6 +2,7 @@ package com.mobile.pft.reclamos.data
 
 import com.mobile.pft.model.EventoDTO
 import com.mobile.pft.model.PatchDTO
+import com.mobile.pft.model.ReclamoCreateDTO
 import com.mobile.pft.model.ReclamoDTO
 import com.mobile.pft.model.StatusReclamoDTO
 import com.mobile.pft.reclamos.network.ReclamosApiService
@@ -17,6 +18,7 @@ interface ReclamosRepository {
     suspend fun getEventos(): List<EventoDTO>
     suspend fun partialUpdate(idReclamo: Long, operation: PatchDTO): ReclamoDTO
     suspend fun updateReclamo(reclamo: ReclamoDTO): ReclamoDTO
+    suspend fun createReclamo(newReclamo: ReclamoCreateDTO): ReclamoDTO
 }
 
 /**
@@ -32,4 +34,5 @@ class NetworkReclamosRepository(
     override suspend fun getEventos(): List<EventoDTO> = reclamosApiService.getEventos()
     override suspend fun partialUpdate(idReclamo: Long, operation: PatchDTO): ReclamoDTO = reclamosApiService.partialUpdate(idReclamo, arrayListOf(operation))
     override suspend fun updateReclamo(reclamo: ReclamoDTO): ReclamoDTO = reclamosApiService.updateReclamo(reclamo)
+    override suspend fun createReclamo(newReclamo: ReclamoCreateDTO): ReclamoDTO = reclamosApiService.createReclamo(newReclamo)
 }

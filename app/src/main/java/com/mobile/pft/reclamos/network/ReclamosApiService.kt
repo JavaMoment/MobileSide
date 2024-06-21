@@ -2,6 +2,7 @@ package com.mobile.pft.reclamos.network
 
 import com.mobile.pft.model.EventoDTO
 import com.mobile.pft.model.PatchDTO
+import com.mobile.pft.model.ReclamoCreateDTO
 import com.mobile.pft.model.ReclamoDTO
 import com.mobile.pft.model.StatusReclamoDTO
 import com.mobile.pft.utils.APPLICATION_JSON_PATCH
@@ -9,6 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
@@ -40,4 +42,7 @@ interface ReclamosApiService {
 
     @PUT("reclamos")
     suspend fun updateReclamo(@Body reclamo: ReclamoDTO): ReclamoDTO
+
+    @POST("reclamos")
+    suspend fun createReclamo(@Body reclamo: ReclamoCreateDTO): ReclamoDTO
 }
