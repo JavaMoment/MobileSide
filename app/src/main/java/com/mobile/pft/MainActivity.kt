@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         // Inicializa SharedPreferences
         sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         val username = sharedPreferences.getString("userLogged", null)
+        val usertype = sharedPreferences.getString("tipoUsuarioLogged", null)
         Log.d("MainActivity", "Username utilizado: $username")
 
         enableEdgeToEdge()
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             Surface(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                NavigationComponent(navController, username)
+                NavigationComponent(navController, username, usertype)
             }
         }
 
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun NavigationComponent(navController: NavHostController, username: String?) {
+fun NavigationComponent(navController: NavHostController, username: String?, usertype: String?) {
     NavHost(
         navController = navController,
         startDestination = "catwalk"
@@ -69,20 +70,26 @@ fun NavigationComponent(navController: NavHostController, username: String?) {
             route = "catwalk",
         ) {
             Log.i("Pasarela", "navegando hacia pantalla inicial")
-            navController.navigate("reclamos/$username")
+            navController.navigate("reclamos/$usertype/$username")
         } // Fix para poder ir a reclamos de manera parametrizada y además agrega la imposibilidad de ir al login navegando hacia atras ;)
         composable(
-            route = "reclamos/{nombreUsuario}",
+            route = "reclamos/{tipoUsuario}/{nombreUsuario}",
             arguments = listOf(
                 navArgument("nombreUsuario") {
+                    type = NavType.StringType
+                    nullable = true
+                },
+                navArgument("tipoUsuario") {
                     type = NavType.StringType
                     nullable = true
                 }
             )
         ) {entry ->
             val nombreUsuario: String? = entry.arguments?.getString("nombreUsuario")
+            val tipoUsuario: String? = entry.arguments?.getString("tipoUsuario")
             Log.i("Navigation", "nombre de usuario: $nombreUsuario")
-            ReclamosApp(navController, nombreUsuario)
+            Log.i("Navigation", "tipo de usuario: $tipoUsuario")
+            ReclamosApp(navController, nombreUsuario, tipoUsuario)
         }
         composable("reclamo/{reclamoId}") { entry ->
             val reclamoId = entry.arguments?.getString("reclamoId")?.toLong()

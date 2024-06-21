@@ -75,7 +75,13 @@ class LoginActivity : AppCompatActivity() {
                         // almacena el token JWT en sharedPreferences
                         val editor = sharedPreferences.edit()
                         editor.putString("jwt_token", loginResponse?.token)
-                        if(loginResponse?.tipoUsuario == TipoUsuario.ESTUDIANTE) editor.putString("userLogged", loginResponse.username) else editor.remove("userLogged") // las shared preferences quedan cacheadas :)
+                        if(loginResponse?.tipoUsuario == TipoUsuario.ESTUDIANTE) {
+                            editor.putString("userLogged", loginResponse.username)
+                        } else {
+                            // las shared preferences quedan cacheadas :)
+                            editor.remove("userLogged")
+                        }
+                        editor.putString("tipoUsuarioLogged", loginResponse?.tipoUsuario.toString())
                         Log.i("LoginActivity", "Response: $loginResponse")
                         editor.apply()
 
