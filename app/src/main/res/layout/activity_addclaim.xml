@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            />
+
+        <TextView
+            android:id="@+id/tituloView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/nuevo_reclamo"
+            android:textAlignment="center"
+            android:textSize="35dp"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:padding="10dp">
+
+
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/custom_input"
+                android:ems="10"
+                android:hint="@string/titulo"
+                android:inputType="text"
+                android:paddingLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:background="@drawable/custom_input"
+                android:inputType="text"
+                android:hint="@string/descripcion"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/eventos"
+                    android:textAlignment="textStart"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/eventosdb"
+                    android:layout_width="280dp"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/semestre"
+                    android:textAlignment="textStart"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/semestre"
+                    android:layout_width="280dp"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/creditos"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:background="@drawable/custom_input"
+                android:inputType="number"
+                android:hint="@string/creditos"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"/>
+
+            <Button
+                android:id="@+id/addclaim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agregar Reclamo"
+                android:layout_marginTop="30dp"/>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
