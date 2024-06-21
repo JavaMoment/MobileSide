@@ -23,10 +23,9 @@ fun ReclamoApp(navController: NavHostController, reclamoId: Long?) {
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = { TopAppBar(scrollBehavior = scrollBehavior, navIcon = { GoBackButton(
             onClick = {
-                navController.navigate("reclamos/${navController.previousBackStackEntry?.arguments?.getString("nombreUsuario")}")
+                navController.navigate("reclamos/${navController.previousBackStackEntry?.arguments?.getString("tipoUsuario")}/${navController.previousBackStackEntry?.arguments?.getString("nombreUsuario")}")
             }
         ) }) },
-        //bottomBar = { SignupBottomBar(scrollBehavior = scrollBehavior) }
     ) { paddingValues ->
         Surface(
             modifier = Modifier.fillMaxSize()

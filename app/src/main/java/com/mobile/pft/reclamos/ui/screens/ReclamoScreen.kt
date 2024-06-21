@@ -168,7 +168,7 @@ fun AnalistaReclamoDetails(
             )
             AttributeInputText(
                 fieldLabel = "Analista a cargo:",
-                value = reclamo.analista.usuario.nombreUsuario,
+                value = reclamo.analista?.usuario?.nombreUsuario?:"",
             )
             AttributeInputText(
                 fieldLabel = "Ultima modificación:",
@@ -261,7 +261,7 @@ fun EstudianteReclamoDetails(
             )
             AttributeInputText(
                 fieldLabel = "Analista a cargo:",
-                value = reclamo.analista.usuario.nombreUsuario,
+                value = reclamo.analista?.usuario?.nombreUsuario?:"",
             )
             AttributeInputText(
                 fieldLabel = "Ultima modificación:",
@@ -270,6 +270,10 @@ fun EstudianteReclamoDetails(
             AttributeInputText(
                 fieldLabel = "Fecha de creación:",
                 value = reclamo.auditDate.toString()
+            )
+            Text(
+                text = "Evento:",
+                style = MaterialTheme.typography.bodyLarge
             )
             DropdownBox(
                 option = evento,
@@ -296,7 +300,10 @@ fun EstudianteReclamoDetails(
                         modifier = Modifier
                             .height(60.dp)
                             .padding(horizontal = 5.dp)
-                            .width(320.dp)
+                            .width(320.dp),
+                        colors = SliderDefaults.colors(
+                            thumbColor = Color.Cyan
+                        )
                     )
                     TextField(
                         value = semestre.toString(),
@@ -335,7 +342,7 @@ fun EstudianteReclamoDetails(
                         value = creditos.toFloat(),
                         onValueChange = {creditos = it.toInt()},
                         steps = 100,
-                        valueRange = 1f..360f,
+                        valueRange = 1f..10f,
                         modifier = Modifier
                             .height(60.dp)
                             .padding(horizontal = 5.dp)
