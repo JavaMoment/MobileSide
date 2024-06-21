@@ -3,7 +3,7 @@ package com.mobile.pft.utils
 enum class Status(
     val value: String
 ) {
-    EN_PROGRESO("EN PROGRESO"), PENDIENTE("PENDIENTE"), RECHAZADO("RECHAZADO")
+    EN_PROCESO("EN PROCESO"), PENDIENTE("PENDIENTE"), RECHAZADO("RECHAZADO")
 }
 
 enum class TipoUsuario {

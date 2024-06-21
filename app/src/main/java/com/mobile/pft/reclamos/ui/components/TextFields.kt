@@ -44,7 +44,7 @@ fun ColoredTextField(
             focusedContainerColor = Color.Gray,
             unfocusedContainerColor = Color.Gray
         )
-    } else if(option.nombre == Status.EN_PROGRESO.value) {
+    } else if(option.nombre == Status.EN_PROCESO.value) {
         OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color.Black,
             unfocusedBorderColor = Color.Black,

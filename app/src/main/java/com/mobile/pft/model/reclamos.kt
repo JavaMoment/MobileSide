@@ -19,7 +19,7 @@ data class StatusReclamoDTO(
 @Serializable
 data class ReclamoDTO(
     val idReclamo: Long,
-    val analista: AnalistaDTO,
+    val analista: AnalistaDTO?,
     val estudiante: EstudianteDTO,
     val evento: EventoDTO,
     val statusReclamo: StatusReclamoDTO,
@@ -33,4 +33,14 @@ data class ReclamoDTO(
     val titulo: String,
     val descripcion: String,
     val detalle: String?
+)
+
+@Serializable
+data class ReclamoCreateDTO(
+    val nombreUsuario: String,
+    val evento: EventoDTO,
+    val semestre: Int?,
+    val creditos: Int?,
+    val titulo: String,
+    val descripcion: String
 )
