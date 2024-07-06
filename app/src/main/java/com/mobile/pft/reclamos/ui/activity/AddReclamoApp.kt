@@ -3,18 +3,24 @@ package com.mobile.pft.reclamos.ui.activity
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.mobile.pft.R
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.google.android.material.appbar.MaterialToolbar
 import com.mobile.pft.data.ApiContainer
 import com.mobile.pft.model.EventoDTO
 import com.mobile.pft.model.ReclamoCreateDTO
 import com.mobile.pft.reclamos.data.ReclamosRepository
+import com.mobile.pft.utils.creditBearingEvents
+import com.mobile.pft.utils.isACreditBearingEvent
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -30,6 +36,8 @@ class AddClaimActivity() : AppCompatActivity() {
         apiContainer = ApiContainer()
         val reclamosRepository: ReclamosRepository = apiContainer.reclamosRepository
 
+        val semestreBox: LinearLayout = findViewById(R.id.semestreBox)
+        val creditosBox: LinearLayout = findViewById(R.id.creditosBox)
         val spinnerSemestre: Spinner = findViewById(R.id.semestre)
         val spinnerEventos: Spinner = findViewById(R.id.eventosdb)
         val semestres = resources.getStringArray(R.array.semestre)
@@ -44,13 +52,33 @@ class AddClaimActivity() : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         val username = sharedPreferences.getString("userLogged", null)?:""
 
-        runBlocking {
-            launch {
-                Log.i("AddReclamoView","Consultando api por los eventos disponibles.")
-                val eventos = reclamosRepository.getEventos()
-                Log.i("AddReclamoView","Eventos disponibles: $eventos")
-                val adapterEventos = ArrayAdapter(this@AddClaimActivity, android.R.layout.simple_spinner_dropdown_item, eventos)
-                spinnerEventos.adapter = adapterEventos
+        val eventos: List<EventoDTO> = runBlocking {
+            Log.i("AddReclamoView","Consultando api por los eventos disponibles.")
+            reclamosRepository.getEventos()
+        }
+        Log.i("AddReclamoView","Eventos disponibles: $eventos")
+        val adapterEventos = ArrayAdapter(this@AddClaimActivity, android.R.layout.simple_spinner_dropdown_item, eventos)
+        spinnerEventos.adapter = adapterEventos
+
+        spinnerEventos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedEvento = eventos[position]
+                if(isACreditBearingEvent(selectedEvento.tiposEvento?.nombre?:"")) {
+                    semestreBox.visibility = View.VISIBLE
+                    creditosBox.visibility = View.VISIBLE
+                } else {
+                    semestreBox.visibility = View.GONE
+                    creditosBox.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
             }
         }
 
@@ -78,8 +106,16 @@ class AddClaimActivity() : AppCompatActivity() {
                 return@setOnClickListener  // Detiene la ejecución adicional del código en este listener
             }
 
-            val selectedSemestre = spinnerSemestre.selectedItem.toString().toInt()
-            val creditos = numberCredits.text.toString().toInt()
+            val selectedSemestre = if(creditosBox.isVisible) {
+                spinnerSemestre.selectedItem.toString().toInt()
+            } else {
+                null
+            }
+            val creditos = if(creditosBox.isVisible) {
+                numberCredits.text.toString().toInt()
+            } else {
+                null
+            }
             val eventoSelected = spinnerEventos.selectedItem as EventoDTO?
 
             // Verifica que un evento haya sido seleccionado

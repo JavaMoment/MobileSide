@@ -14,60 +14,84 @@
             android:id="@+id/materialToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="#00ffff"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:navigationIcon="?attr/homeAsUpIndicator"
-            />
+            >
+            <TextView
+                android:id="@+id/tituloView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/nuevo_reclamo"
+                android:textAlignment="center"
+                android:textSize="35dp"
+                android:layout_marginRight="25dp"
+                />
+        </com.google.android.material.appbar.MaterialToolbar>
 
-        <TextView
-            android:id="@+id/tituloView"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="@string/nuevo_reclamo"
-            android:textAlignment="center"
-            android:textSize="35dp"
-            android:layout_marginTop="20dp"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:padding="10dp">
-
-
-            <EditText
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/custom_input"
-                android:ems="10"
-                android:hint="@string/titulo"
-                android:inputType="text"
-                android:paddingLeft="20dp"/>
-
-            <EditText
-                android:id="@+id/descripcion"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:background="@drawable/custom_input"
-                android:inputType="text"
-                android:hint="@string/descripcion"
-                android:layout_marginTop="20dp"
-                android:paddingLeft="20dp"/>
+            android:padding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:orientation="horizontal"
+                android:layout_height="80dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="115dp"
+                    android:layout_height="wrap_content"
+                    android:text="Titulo:"
+                    android:textAlignment="textStart"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom_input"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="115dp"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción:"
+                    android:textAlignment="textStart"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/descripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom_input"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:orientation="vertical"
                 android:layout_marginTop="20dp">
 
                 <TextView
                     android:id="@+id/textView4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
                     android:text="@string/eventos"
                     android:textAlignment="textStart"
@@ -76,50 +100,67 @@
 
                 <Spinner
                     android:id="@+id/eventosdb"
-                    android:layout_width="280dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
                     android:spinnerMode="dialog" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/semestreBox"
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:orientation="horizontal"
+                android:layout_height="90dp"
+                android:orientation="vertical"
                 android:layout_marginTop="20dp">
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/semestre"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Semestre:"
                     android:textAlignment="textStart"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/semestre"
-                    android:layout_width="280dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
                     android:spinnerMode="dialog" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/creditos"
+            <LinearLayout
+                android:id="@+id/creditosBox"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:background="@drawable/custom_input"
-                android:inputType="number"
-                android:hint="@string/creditos"
-                android:layout_marginTop="20dp"
-                android:paddingLeft="20dp"/>
+                android:layout_height="80dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Creditos:"
+                    android:textAlignment="textStart"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    >
+                </TextView>>
+                <EditText
+                    android:id="@+id/creditos"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom_input"
+                    android:inputType="number"
+                    >
+                </EditText>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/addclaim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Agregar Reclamo"
-                android:layout_marginTop="30dp"/>
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#00ffff"
+                />
 
 
 
