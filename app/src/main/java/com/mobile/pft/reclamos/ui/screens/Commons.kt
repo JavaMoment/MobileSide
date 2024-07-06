@@ -59,7 +59,8 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
 fun TopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
-    navIcon: @Composable () -> Unit
+    navIcon: @Composable () -> Unit,
+    trailingIcon: @Composable () -> Unit
 ) {
     CenterAlignedTopAppBar(
         scrollBehavior = scrollBehavior,
@@ -75,7 +76,7 @@ fun TopAppBar(
             )
         },
         navigationIcon = navIcon,
-        actions = {// icono de utec mostrado al final pero que no haga nada, o si...
+        actions = { trailingIcon() }/*{// icono de utec mostrado al final pero que no haga nada, o si...
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     painterResource(R.drawable.ic_utec_small_logo),
@@ -84,7 +85,7 @@ fun TopAppBar(
                     modifier = Modifier.size(50.dp)
                 )
             }
-        },
+        }*/,
         modifier = modifier
     )
 }
