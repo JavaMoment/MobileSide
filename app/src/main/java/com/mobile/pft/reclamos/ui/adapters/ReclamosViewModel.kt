@@ -87,6 +87,33 @@ class ReclamosViewModel(
         }
     }
 
+    fun getReclamosByTitleLike(keytext: String) {
+        viewModelScope.launch {
+            //uiState = ReclamosUiState.Loading
+            uiState = try {
+                Log.i("ReclamosView","Consultando api por los reclamos que contengan $keytext en el titulo.")
+                ReclamosUiState.Success(reclamosRepository.getReclamos(keytext))
+            } catch (e: IOException) {
+                ReclamosUiState.Error
+            } catch (e: HttpException) {
+                ReclamosUiState.Error
+            }
+        }
+    }
+    fun getStudentReclamosBy(username: String, keytext: String) {
+        viewModelScope.launch {
+            //uiState = ReclamosUiState.Loading
+            uiState = try {
+                Log.i("ReclamosView","Consultando api por los reclamos que contengan $keytext en el titulo y sean del username $username.")
+                ReclamosUiState.Success(reclamosRepository.getReclamosBy(username, keytext))
+            } catch (e: IOException) {
+                ReclamosUiState.Error
+            } catch (e: HttpException) {
+                ReclamosUiState.Error
+            }
+        }
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

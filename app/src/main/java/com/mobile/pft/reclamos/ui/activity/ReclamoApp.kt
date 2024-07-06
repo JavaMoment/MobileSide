@@ -12,6 +12,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.mobile.pft.reclamos.ui.adapters.ReclamoViewModel
 import com.mobile.pft.reclamos.ui.components.GoBackButton
+import com.mobile.pft.reclamos.ui.components.UtecIcon
 import com.mobile.pft.reclamos.ui.screens.ReclamoScreen
 import com.mobile.pft.reclamos.ui.screens.TopAppBar
 
@@ -25,7 +26,9 @@ fun ReclamoApp(navController: NavHostController, reclamoId: Long?) {
             onClick = {
                 navController.navigate("reclamos/${navController.previousBackStackEntry?.arguments?.getString("tipoUsuario")}/${navController.previousBackStackEntry?.arguments?.getString("nombreUsuario")}")
             }
-        ) }) },
+        ) },
+            trailingIcon = { UtecIcon() }
+        )}
     ) { paddingValues ->
         Surface(
             modifier = Modifier.fillMaxSize()
