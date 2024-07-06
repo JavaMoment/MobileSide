@@ -13,6 +13,7 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Interfaz publica donde exponemos los metodos api relacionados al signup
@@ -22,7 +23,7 @@ interface ReclamosApiService {
      * GET que devuelve una [List] de [ReclamoDTO] y puede ser llamado desde una coroutine (cof cof composable cof cof).
      */
     @GET("reclamos")
-    suspend fun getReclamos(): List<ReclamoDTO>
+    suspend fun getReclamos(@Query("searchText") keytext: String = ""): List<ReclamoDTO>
 
     @GET("reclamos/statuses")
     suspend fun getStatusReclamo(): List<StatusReclamoDTO>
@@ -31,7 +32,7 @@ interface ReclamosApiService {
     suspend fun getReclamoBy(@Path("idReclamo") idReclamo: Long): ReclamoDTO
 
     @GET("reclamos/estudiante/{nombreUsuario}")
-    suspend fun getReclamosBy(@Path("nombreUsuario") nombreUsuario: String): List<ReclamoDTO>
+    suspend fun getReclamosBy(@Path("nombreUsuario") nombreUsuario: String, @Query("searchText") keytext: String = ""): List<ReclamoDTO>
 
     @GET("reclamos/eventos")
     suspend fun getEventos(): List<EventoDTO>
