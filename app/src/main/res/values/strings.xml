@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">PFT</string>
+    <string name="titulo">Titulo</string>
+    <string name="agregar_reclamo">Agregar Reclamo</string>
+    <string name="Descripcion" />
+    <string name="descripcion">Descripcion</string>
+    <string name="nuevo_reclamo">Nuevo reclamo</string>
+    <string name="creditos">Creditos</string>
+    <string name="semestre">Semestre:</string>
+    <string name="eventos">Eventos:</string>
+    <string-array name="semestre">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
 </resources>
